@@ -1,0 +1,35 @@
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express from 'express';
+import { StatusCodes } from 'http-status-codes';
+
+import errorHandler from '@/middlewares/error-handler.middleware';
+import helmet from '@/middlewares/helmet.middleware';
+import rateLimiter from '@/middlewares/rate-limiter.middleware';
+import requestLogger from '@/middlewares/request-logger.middleware';
+import { env } from './env';
+
+const app: express.Express = express();
+
+// Set the application to trust the reverse proxy
+app.set('trust proxy', true);
+
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
+app.use(helmet);
+app.use(rateLimiter);
+
+// Request logging
+app.use(requestLogger);
+
+app.get('/', (req, res) => {
+  return res.status(StatusCodes.OK).send({ message: 'Hello' });
+});
+
+// Error handlers
+app.use(errorHandler());
+
+export default app;
