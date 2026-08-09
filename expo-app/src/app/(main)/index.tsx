@@ -16,8 +16,12 @@ import { Room } from '@/features/home/schema/room.schema';
 import { useRefreshOnFocus } from '@/hooks/use-refresh-on-focus';
 import { useAuthStore } from '@/store/auth';
 import { useSocketStore } from '@/store/socket';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
+  const safeAreaInsets = useSafeAreaInsets()
+
+
   const {
     data: rooms = [],
     isLoading,
@@ -70,6 +74,7 @@ export default function HomeScreen() {
   return (
     <FlatList
       className="flex-1 px-4"
+      style={{ paddingTop: safeAreaInsets.top }}
       contentContainerClassName="gap-4 pb-8 pt-4"
       data={rooms}
       keyExtractor={(item: Room) => item.id}
