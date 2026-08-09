@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const userSchema = z.object({
   id: z.string(),
-  username: z.string().max(30),
+  username: z.string().nonempty().max(30),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
