@@ -15,6 +15,8 @@ const envSchema = z.object({
   COMMON_RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(1000),
 
   COMMON_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(1000),
+
+  MONGO_URI: z.url(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
