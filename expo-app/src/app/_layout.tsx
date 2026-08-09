@@ -1,18 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import '@/global.css';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { PortalHost } from '@rn-primitives/portal';
+import { Stack } from 'expo-router';
+import { ThemeProvider } from 'expo-router/react-navigation';
+import { StatusBar } from 'expo-status-bar';
+import { useUniwind } from 'uniwind';
 
-SplashScreen.preventAutoHideAsync();
+import { NAV_THEME } from '@/lib/theme';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
+
+export default function RootLayout() {
+  const { theme } = useUniwind();
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
+    <ThemeProvider value={NAV_THEME[theme ?? 'light']}>
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
+      <Stack />
+      <PortalHost />
     </ThemeProvider>
   );
 }

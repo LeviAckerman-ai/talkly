@@ -1,13 +1,14 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
-import { StatusCodes } from 'http-status-codes';
 
 import errorHandler from '@/middlewares/error-handler.middleware';
 import helmet from '@/middlewares/helmet.middleware';
 import rateLimiter from '@/middlewares/rate-limiter.middleware';
 import requestLogger from '@/middlewares/request-logger.middleware';
 import { env } from './env';
+import { healthCheckRouter } from './routes/health-check.route';
+import { openAPIRouter } from './utils/openapi/router';
 
 const app: express.Express = express();
 
@@ -25,9 +26,9 @@ app.use(rateLimiter);
 // Request logging
 app.use(requestLogger);
 
-app.get('/', (req, res) => {
-  return res.status(StatusCodes.OK).send({ message: 'Hello' });
-});
+app.use('/health-check', healthCheckRouter);
+
+app.use(openAPIRouter);
 
 // Error handlers
 app.use(errorHandler());

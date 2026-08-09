@@ -7,6 +7,12 @@ settings:
 importers:
   .:
     dependencies:
+      '@asteasolutions/zod-to-openapi':
+        specifier: ^9.1.0
+        version: 9.1.0(zod@4.4.3)
+      '@scalar/express-api-reference':
+        specifier: ^0.10.13
+        version: 0.10.13
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
@@ -67,7 +73,7 @@ importers:
         version: 7.2.2
       tsup:
         specifier: ^8.5.1
-        version: 8.5.1(postcss@8.5.26)(tsx@4.23.11)(typescript@5.9.3)
+        version: 8.5.1(postcss@8.5.26)(tsx@4.23.11)(typescript@5.9.3)(yaml@2.9.0)
       tsx:
         specifier: ^4.23.11
         version: 4.23.11
@@ -76,12 +82,20 @@ importers:
         version: 5.9.3
       vite-tsconfig-paths:
         specifier: ^6.1.1
-        version: 6.1.1(typescript@5.9.3)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11))
+        version: 6.1.1(typescript@5.9.3)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0))
       vitest:
         specifier: ^4.1.10
-        version: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11))
+        version: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0))
 
 packages:
+  '@asteasolutions/zod-to-openapi@9.1.0':
+    resolution:
+      {
+        integrity: sha512-pLMeRgRYS7/vZIgAAkOe2P6+XGTifR1MT9pqDoxZ11EmcJJ+DPmdPqLN8ZZF4U8R9KHCCQCS9c2wtuE8wSrfkw==,
+      }
+    peerDependencies:
+      zod: ^4.0.0
+
   '@babel/code-frame@7.29.7':
     resolution:
       {
@@ -1118,6 +1132,48 @@ packages:
       }
     cpu: [x64]
     os: [win32]
+
+  '@scalar/client-side-rendering@0.3.6':
+    resolution:
+      {
+        integrity: sha512-CshKXof+tyu0tpgMhRSoNw6Fnn1ywVveJnb5iIJ8ue/FIVn6rP+BEQcgdIiNUPBEXHaAnz+HCGGiScKRzXRB7Q==,
+      }
+    engines: { node: '>=22' }
+
+  '@scalar/express-api-reference@0.10.13':
+    resolution:
+      {
+        integrity: sha512-4VAIiiNV7q1tmTtFcG/aZfaK9fV/+Z1hqStxmAD/MWUyVdn0BG36ZjNmEzB6cPBWZraCFv87KQaItaWVLNzezg==,
+      }
+    engines: { node: '>=22' }
+
+  '@scalar/helpers@0.10.0':
+    resolution:
+      {
+        integrity: sha512-IAfnpIZnXY6ni+zyFMwWHBa5b/7yr4mCSvoTGR84oS9q4Quy2wjgafnr7CyfL65ney3iilBZHigZYLYqdqCu3Q==,
+      }
+    engines: { node: '>=22' }
+
+  '@scalar/schemas@0.8.1':
+    resolution:
+      {
+        integrity: sha512-SGB/Verzjf6wpULdOIQfCCPvG46GTVYawirjQ8AVSFSIMduS6zz1MpL+I90Z8/zjeSbjtwRoLtjjWb2yByEjfQ==,
+      }
+    engines: { node: '>=22' }
+
+  '@scalar/types@0.17.1':
+    resolution:
+      {
+        integrity: sha512-jqudbDtdvP/SiOTuj7Gg3dBY8IMb7oeJI/7K4QF2cOiWgnbYUQFeaYzktpNZwcCQkIJwlxYfd0i97KwlyD9GMQ==,
+      }
+    engines: { node: '>=22' }
+
+  '@scalar/validation@0.6.2':
+    resolution:
+      {
+        integrity: sha512-Sc1TkcwGV6aVCO51AyKeaGiP8gpwAHxEtO5d3tZzPV+KsnlC/YokQxFxwBrbIXw73k9hmcExnJyGu3k5i6n6VA==,
+      }
+    engines: { node: '>=20' }
 
   '@standard-schema/spec@1.1.0':
     resolution:
@@ -2409,6 +2465,14 @@ packages:
     engines: { node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1 }
     hasBin: true
 
+  nanoid@5.1.16:
+    resolution:
+      {
+        integrity: sha512-kVrnsrJqMR8+oLJnGEmSWw9BivK5mt7H3FZatVRjrc5wGqFYuBxX1yG7+A7Gi5AefkX6t/oCkizcQgpu0cY1dQ==,
+      }
+    engines: { node: ^18 || >=20 }
+    hasBin: true
+
   natural-compare@1.4.0:
     resolution:
       {
@@ -2461,6 +2525,12 @@ packages:
     resolution:
       {
         integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==,
+      }
+
+  openapi3-ts@4.6.1:
+    resolution:
+      {
+        integrity: sha512-XW9MOldkhoICNeXVzzmXzmOW5G73ppOEGmh7fLCqHjgfdEYCGGN+00MlVCeUZgovjjfC56j9tvtDt1zGabNjjA==,
       }
 
   optionator@0.9.4:
@@ -2872,6 +2942,13 @@ packages:
       }
     engines: { node: '>=8' }
 
+  tagged-tag@1.0.0:
+    resolution:
+      {
+        integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==,
+      }
+    engines: { node: '>=20' }
+
   thenify-all@1.6.0:
     resolution:
       {
@@ -2995,6 +3072,13 @@ packages:
         integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==,
       }
     engines: { node: '>= 0.8.0' }
+
+  type-fest@5.8.0:
+    resolution:
+      {
+        integrity: sha512-YGYEVz3Fm5iy/AybuA0oyNFq7H4CgQNfRp/qfe8nurE1kuCeNm3/vfm9X4Mtl+qLyaKJUh5xrFZwogr41SMjYA==,
+      }
+    engines: { node: '>=20' }
 
   type-is@2.1.0:
     resolution:
@@ -3170,6 +3254,14 @@ packages:
         integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==,
       }
 
+  yaml@2.9.0:
+    resolution:
+      {
+        integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==,
+      }
+    engines: { node: '>= 14.6' }
+    hasBin: true
+
   yocto-queue@0.1.0:
     resolution:
       {
@@ -3184,6 +3276,11 @@ packages:
       }
 
 snapshots:
+  '@asteasolutions/zod-to-openapi@9.1.0(zod@4.4.3)':
+    dependencies:
+      openapi3-ts: 4.6.1
+      zod: 4.4.3
+
   '@babel/code-frame@7.29.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.29.7
@@ -3592,6 +3689,32 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.62.4':
     optional: true
 
+  '@scalar/client-side-rendering@0.3.6':
+    dependencies:
+      '@scalar/schemas': 0.8.1
+      '@scalar/types': 0.17.1
+      '@scalar/validation': 0.6.2
+
+  '@scalar/express-api-reference@0.10.13':
+    dependencies:
+      '@scalar/client-side-rendering': 0.3.6
+
+  '@scalar/helpers@0.10.0': {}
+
+  '@scalar/schemas@0.8.1':
+    dependencies:
+      '@scalar/helpers': 0.10.0
+      '@scalar/validation': 0.6.2
+
+  '@scalar/types@0.17.1':
+    dependencies:
+      '@scalar/helpers': 0.10.0
+      nanoid: 5.1.16
+      type-fest: 5.8.0
+      zod: 4.4.3
+
+  '@scalar/validation@0.6.2': {}
+
   '@standard-schema/spec@1.1.0': {}
 
   '@types/body-parser@1.19.6':
@@ -3684,7 +3807,7 @@ snapshots:
       obug: 2.1.4
       std-env: 4.2.0
       tinyrainbow: 3.1.1
-      vitest: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11))
+      vitest: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0))
 
   '@vitest/expect@4.1.10':
     dependencies:
@@ -3695,13 +3818,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11))':
+  '@vitest/mocker@4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.10
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)
+      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0)
 
   '@vitest/pretty-format@4.1.10':
     dependencies:
@@ -4369,6 +4492,8 @@ snapshots:
 
   nanoid@3.3.18: {}
 
+  nanoid@5.1.16: {}
+
   natural-compare@1.4.0: {}
 
   negotiator@1.0.0: {}
@@ -4388,6 +4513,10 @@ snapshots:
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
+
+  openapi3-ts@4.6.1:
+    dependencies:
+      yaml: 2.9.0
 
   optionator@0.9.4:
     dependencies:
@@ -4455,12 +4584,13 @@ snapshots:
       mlly: 1.8.2
       pathe: 2.0.3
 
-  postcss-load-config@6.0.1(postcss@8.5.26)(tsx@4.23.11):
+  postcss-load-config@6.0.1(postcss@8.5.26)(tsx@4.23.11)(yaml@2.9.0):
     dependencies:
       lilconfig: 3.1.3
     optionalDependencies:
       postcss: 8.5.26
       tsx: 4.23.11
+      yaml: 2.9.0
 
   postcss@8.5.26:
     dependencies:
@@ -4688,6 +4818,8 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
+  tagged-tag@1.0.0: {}
+
   thenify-all@1.6.0:
     dependencies:
       thenify: 3.3.1
@@ -4723,7 +4855,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  tsup@8.5.1(postcss@8.5.26)(tsx@4.23.11)(typescript@5.9.3):
+  tsup@8.5.1(postcss@8.5.26)(tsx@4.23.11)(typescript@5.9.3)(yaml@2.9.0):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.27.7)
       cac: 6.7.14
@@ -4734,7 +4866,7 @@ snapshots:
       fix-dts-default-cjs-exports: 1.0.1
       joycon: 3.1.1
       picocolors: 1.1.1
-      postcss-load-config: 6.0.1(postcss@8.5.26)(tsx@4.23.11)
+      postcss-load-config: 6.0.1(postcss@8.5.26)(tsx@4.23.11)(yaml@2.9.0)
       resolve-from: 5.0.0
       rollup: 4.62.4
       source-map: 0.7.6
@@ -4761,6 +4893,10 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
+  type-fest@5.8.0:
+    dependencies:
+      tagged-tag: 1.0.0
+
   type-is@2.1.0:
     dependencies:
       content-type: 2.0.0
@@ -4781,17 +4917,17 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-tsconfig-paths@6.1.1(typescript@5.9.3)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)):
+  vite-tsconfig-paths@6.1.1(typescript@5.9.3)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@5.9.3)
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)
+      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11):
+  vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.5
@@ -4803,11 +4939,12 @@ snapshots:
       esbuild: 0.27.7
       fsevents: 2.3.3
       tsx: 4.23.11
+      yaml: 2.9.0
 
-  vitest@4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)):
+  vitest@4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0)):
     dependencies:
       '@vitest/expect': 4.1.10
-      '@vitest/mocker': 4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11))
+      '@vitest/mocker': 4.1.10(vite@8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0))
       '@vitest/pretty-format': 4.1.10
       '@vitest/runner': 4.1.10
       '@vitest/snapshot': 4.1.10
@@ -4824,7 +4961,7 @@ snapshots:
       tinyexec: 1.3.0
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.1
-      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)
+      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.27.7)(tsx@4.23.11)(yaml@2.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.20.1
@@ -4844,6 +4981,8 @@ snapshots:
   word-wrap@1.2.5: {}
 
   wrappy@1.0.2: {}
+
+  yaml@2.9.0: {}
 
   yocto-queue@0.1.0: {}
 

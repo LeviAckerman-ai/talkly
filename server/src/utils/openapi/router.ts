@@ -1,0 +1,18 @@
+import { apiReference } from '@scalar/express-api-reference';
+import express, { type Request, type Response, type Router } from 'express';
+
+import { generateOpenAPIDocument } from './document-generator';
+
+export const openAPIRouter: Router = express.Router();
+const openAPIDocument = generateOpenAPIDocument();
+
+openAPIRouter.get('/openapi.json', (_req: Request, res: Response) => {
+  res.send(openAPIDocument);
+});
+
+openAPIRouter.use(
+  '/docs',
+  apiReference({
+    url: '/openapi.json',
+  }),
+);
