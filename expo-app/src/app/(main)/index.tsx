@@ -1,13 +1,33 @@
-import { useEffect } from 'react';
-import { View } from 'react-native';
+import { useCallback, useEffect } from 'react';
+import { FlatList, RefreshControl } from 'react-native';
 
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
+import { HomeHeader } from '@/features/home/components/home-header';
+import { HomeRoomCard } from '@/features/home/components/home-room-card';
+import {
+  HomeRoomsEmpty,
+  HomeRoomsError,
+  HomeRoomsFooter,
+  HomeRoomsLoading,
+} from '@/features/home/components/home-rooms-fallback';
+import { useRooms } from '@/features/home/hooks/use-rooms';
+import { Room } from '@/features/home/schema/room.schema';
+import { useRefreshOnFocus } from '@/hooks/use-refresh-on-focus';
 import { connectSocket, disconnectSocket, socket } from '@/lib/socket';
-import { useAuthStore } from '@/store/auth';
 
 export default function HomeScreen() {
-  const { user, removeUser } = useAuthStore((state) => state);
+  const {
+    data: rooms = [],
+    isLoading,
+    isError,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+    isRefetching,
+  } = useRooms();
+
+  useRefreshOnFocus(refetch);
 
   useEffect(() => {
     connectSocket();
@@ -27,16 +47,27 @@ export default function HomeScreen() {
     };
   }, []);
 
-  return (
-    <View className="flex-1 items-center justify-center gap-6 p-4">
-      <View className="items-center gap-2">
-        <Text variant="h1">Hello, {user?.username}!</Text>
-        <Text className="text-muted-foreground text-sm">ID: {user?.id}</Text>
-      </View>
+  const renderEmpty = useCallback(() => {
+    if (isLoading) return <HomeRoomsLoading />;
+    if (isError) return <HomeRoomsError message={error?.message} />;
+    return <HomeRoomsEmpty />;
+  }, [isLoading, isError, error]);
 
-      <Button variant="destructive" onPress={removeUser}>
-        <Text>Logout</Text>
-      </Button>
-    </View>
+  return (
+    <FlatList
+      className="flex-1 px-4"
+      contentContainerClassName="gap-4 pb-8 pt-4"
+      data={rooms}
+      keyExtractor={(item: Room) => item.id}
+      renderItem={({ item }) => <HomeRoomCard room={item} />}
+      onEndReached={() => {
+        if (hasNextPage && !isFetchingNextPage) fetchNextPage();
+      }}
+      onEndReachedThreshold={0.5}
+      refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+      ListHeaderComponent={<HomeHeader />}
+      ListEmptyComponent={renderEmpty}
+      ListFooterComponent={<HomeRoomsFooter isFetchingNextPage={isFetchingNextPage} />}
+    />
   );
 }
