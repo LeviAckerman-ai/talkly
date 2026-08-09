@@ -1,6 +1,3 @@
-import { Platform } from 'react-native';
-
 export const env = {
-  EXPO_PUBLIC_SERVER_URL:
-    Platform.OS === 'web' ? process.env.EXPO_PUBLIC_WEB_URL! : process.env.EXPO_PUBLIC_SERVER_URL!,
+  EXPO_PUBLIC_SERVER_URL: process.env.EXPO_PUBLIC_SERVER_URL!,
 };
