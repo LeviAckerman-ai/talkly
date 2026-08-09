@@ -1,7 +1,6 @@
 import { Server, Socket } from 'socket.io';
 
 import { Message } from '@/db/schemas/message.schema';
-import { User } from '@/db/schemas/user.schema';
 import { logger } from '@/utils/logger';
 
 export const chatGateway = (io: Server) => {
@@ -38,6 +37,14 @@ export const chatGateway = (io: Server) => {
       } catch (error) {
         logger.error(error as Error, 'Error saving message');
       }
+    });
+
+    socket.on('typing_start', (payload: { roomId: string; username: string }) => {
+      socket.to(payload.roomId).emit('user_typing', { username: payload.username });
+    });
+
+    socket.on('typing_end', (payload: { roomId: string; username: string }) => {
+      socket.to(payload.roomId).emit('user_stopped_typing', { username: payload.username });
     });
   });
 };

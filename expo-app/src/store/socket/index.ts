@@ -6,6 +6,7 @@ import type { AppSocket, SocketStore } from './type';
 
 export const useSocketStore = create<SocketStore>((set, get) => ({
   socket: null,
+  onlineUsers: [],
   connectSocket: (userId?: string) => {
     let { socket } = get();
     if (!socket) {
@@ -19,12 +20,18 @@ export const useSocketStore = create<SocketStore>((set, get) => ({
       if (userId) {
         socket.io.opts.query = { id: userId };
       }
+
+      socket.on('online_users', (users) => {
+        set({ onlineUsers: users });
+      });
+
       socket.connect();
     }
   },
   disconnectSocket: () => {
     const { socket } = get();
     if (socket?.connected) {
+      socket.off('online_users');
       socket.disconnect();
     }
   },

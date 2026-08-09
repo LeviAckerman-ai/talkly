@@ -10,6 +10,7 @@ import {
   HomeRoomsFooter,
   HomeRoomsLoading,
 } from '@/features/home/components/home-rooms-fallback';
+import { OnlineUsers } from '@/features/home/components/online-users';
 import { useRooms } from '@/features/home/hooks/use-rooms';
 import { Room } from '@/features/home/schema/room.schema';
 import { useRefreshOnFocus } from '@/hooks/use-refresh-on-focus';
@@ -78,7 +79,7 @@ export default function HomeScreen() {
           onPress={() =>
             router.push({
               pathname: '/(main)/room/[id]',
-              params: { id: item.id },
+              params: { id: item.id, name: item.name },
             })
           }
         />
@@ -88,7 +89,12 @@ export default function HomeScreen() {
       }}
       onEndReachedThreshold={0.5}
       refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
-      ListHeaderComponent={<HomeHeader />}
+      ListHeaderComponent={
+        <>
+          <HomeHeader />
+          <OnlineUsers />
+        </>
+      }
       ListEmptyComponent={renderEmpty}
       ListFooterComponent={<HomeRoomsFooter isFetchingNextPage={isFetchingNextPage} />}
     />
