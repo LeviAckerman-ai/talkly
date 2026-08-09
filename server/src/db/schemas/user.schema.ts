@@ -1,4 +1,5 @@
-import { model, Schema } from 'mongoose';
+import { InferSchemaType, model, PaginateModel, Schema } from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 
 const userSchema = new Schema(
   {
@@ -15,4 +16,7 @@ const userSchema = new Schema(
   },
 );
 
-export const User = model('users', userSchema);
+userSchema.plugin(paginate);
+
+type UserType = InferSchemaType<typeof userSchema>;
+export const User = model<UserType, PaginateModel<UserType>>('users', userSchema);

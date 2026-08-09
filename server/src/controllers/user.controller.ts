@@ -2,11 +2,18 @@ import type { Request, Response } from 'express';
 import { NotFoundError } from 'express-error-toolkit';
 import { StatusCodes } from 'http-status-codes';
 
+import { PaginationRequest } from '@/dto/common/pagination.dto';
 import { CreateUserRequest } from '@/dto/user/create-user.dto';
 import { userService } from '@/services/user.service';
 
 export class UserController {
   private readonly userService = userService;
+
+  public getAll = async (req: PaginationRequest, res: Response) => {
+    const result = await this.userService.getAll(req.query);
+
+    return res.status(StatusCodes.OK).send(result);
+  };
 
   public auth = async (req: CreateUserRequest, res: Response) => {
     const { username } = req.body;

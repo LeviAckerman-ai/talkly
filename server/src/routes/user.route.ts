@@ -5,6 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
 import { userController } from '@/controllers/user.controller';
+import { createPaginatedResponseSchema, paginationQuerySchema } from '@/dto/common/pagination.dto';
 import { createUserSchema } from '@/dto/user/create-user.dto';
 import { userSchema } from '@/dto/user/user.dto';
 import { requestBody } from '@/utils/openapi/request-builder';
@@ -42,3 +43,21 @@ userRegistry.registerPath({
 });
 
 userRouter.get('/:id', validate({ params: userIdParamsSchema }), userController.getById);
+
+userRegistry.registerPath({
+  method: 'get',
+  path: '/user',
+  tags: ['User'],
+  summary: 'Get paginated users',
+  description: 'Fetches a paginated list of users with optional search.',
+  request: {
+    query: paginationQuerySchema,
+  },
+  responses: createApiResponse(
+    createPaginatedResponseSchema(userSchema),
+    'Users fetched',
+    StatusCodes.OK,
+  ),
+});
+
+userRouter.get('/', validate({ query: paginationQuerySchema }), userController.getAll);
