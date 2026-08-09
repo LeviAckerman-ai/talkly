@@ -10,6 +10,7 @@ export default function MainRootLayout() {
   return (
     <Stack initialRouteName="index">
       <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="room/[id]" options={{ headerShown: false }} />
     </Stack>
   );
 }

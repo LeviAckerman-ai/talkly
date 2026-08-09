@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 
@@ -59,7 +60,17 @@ export default function HomeScreen() {
       contentContainerClassName="gap-4 pb-8 pt-4"
       data={rooms}
       keyExtractor={(item: Room) => item.id}
-      renderItem={({ item }) => <HomeRoomCard room={item} />}
+      renderItem={({ item }) => (
+        <HomeRoomCard
+          room={item}
+          onPress={() =>
+            router.push({
+              pathname: '/(main)/room/[id]',
+              params: { id: item.id },
+            })
+          }
+        />
+      )}
       onEndReached={() => {
         if (hasNextPage && !isFetchingNextPage) fetchNextPage();
       }}
