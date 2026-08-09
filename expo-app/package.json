@@ -12,7 +12,8 @@
     "preview:web": "pnpm dlx serve dist",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "vercel-build": "expo export"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",
