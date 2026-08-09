@@ -1,6 +1,7 @@
 import app from './app';
 import connectDatabase from './config/mongoose.config';
 import { env } from './env';
+import { initSocket } from './gateways/socket.gateway';
 import { logger } from './utils/logger';
 
 const startServer = async () => {
@@ -10,6 +11,8 @@ const startServer = async () => {
     const { NODE_ENV, HOST, PORT } = env;
     logger.info(`Server (${NODE_ENV}) running on port http://${HOST}:${PORT}`);
   });
+
+  initSocket(server);
 
   const onCloseSignal = () => {
     logger.info('sigint received, shutting down');
