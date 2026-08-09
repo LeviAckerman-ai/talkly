@@ -8,6 +8,7 @@ import rateLimiter from '@/middlewares/rate-limiter.middleware';
 import requestLogger from '@/middlewares/request-logger.middleware';
 import { env } from './env';
 import { healthCheckRouter } from './routes/health-check.route';
+import { messageRouter } from './routes/message.route';
 import { roomRouter } from './routes/room.route';
 import { userRouter } from './routes/user.route';
 import { openAPIRouter } from './utils/openapi/router';
@@ -31,6 +32,7 @@ app.use(requestLogger);
 app.use('/health-check', healthCheckRouter);
 app.use('/user', userRouter);
 app.use('/room', roomRouter);
+app.use('/message', messageRouter);
 
 app.use(openAPIRouter);
 

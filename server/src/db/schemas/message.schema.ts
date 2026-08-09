@@ -1,4 +1,5 @@
-import { model, Schema } from 'mongoose';
+import { InferSchemaType, model, PaginateModel, Schema } from 'mongoose';
+import paginate from 'mongoose-paginate-v2';
 
 const messageSchema = new Schema(
   {
@@ -23,4 +24,7 @@ const messageSchema = new Schema(
   },
 );
 
-export const Message = model('messages', messageSchema);
+messageSchema.plugin(paginate);
+
+type MessageType = InferSchemaType<typeof messageSchema>;
+export const Message = model<MessageType, PaginateModel<MessageType>>('messages', messageSchema);

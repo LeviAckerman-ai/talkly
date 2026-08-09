@@ -3,6 +3,7 @@ import { Server, Socket } from 'socket.io';
 
 import { env } from '@/env';
 import { logger } from '@/utils/logger';
+import { chatGateway } from './chat.gateway';
 
 export const initSocket = (httpServer: HttpServer) => {
   const io = new Server(httpServer, {
@@ -19,6 +20,8 @@ export const initSocket = (httpServer: HttpServer) => {
       logger.info(`Socket disconnected: ${socket.id}`);
     });
   });
+
+  chatGateway(io);
 
   return io;
 };

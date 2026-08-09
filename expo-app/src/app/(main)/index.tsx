@@ -13,7 +13,8 @@ import {
 import { useRooms } from '@/features/home/hooks/use-rooms';
 import { Room } from '@/features/home/schema/room.schema';
 import { useRefreshOnFocus } from '@/hooks/use-refresh-on-focus';
-import { connectSocket, disconnectSocket, socket } from '@/lib/socket';
+import { useAuthStore } from '@/store/auth';
+import { useSocketStore } from '@/store/socket';
 
 export default function HomeScreen() {
   const {
@@ -28,25 +29,36 @@ export default function HomeScreen() {
     isRefetching,
   } = useRooms();
 
+  const user = useAuthStore((state) => state.user);
+  const { socket, connectSocket, disconnectSocket } = useSocketStore();
+
   useRefreshOnFocus(refetch);
 
   useEffect(() => {
-    connectSocket();
+    if (user?.id) {
+      connectSocket(user.id);
+    } else {
+      connectSocket();
+    }
 
-    socket.on('connect', () => {
-      console.log('✅ Socket connected from client:', socket.id);
-    });
+    if (socket) {
+      socket.on('connect', () => {
+        console.log('✅ Socket connected from client:', socket.id);
+      });
 
-    socket.on('disconnect', () => {
-      console.log('❌ Socket disconnected from client');
-    });
+      socket.on('disconnect', () => {
+        console.log('❌ Socket disconnected from client');
+      });
+    }
 
     return () => {
-      socket.off('connect');
-      socket.off('disconnect');
+      if (socket) {
+        socket.off('connect');
+        socket.off('disconnect');
+      }
       disconnectSocket();
     };
-  }, []);
+  }, [user?.id, socket, connectSocket, disconnectSocket]);
 
   const renderEmpty = useCallback(() => {
     if (isLoading) return <HomeRoomsLoading />;

@@ -6,7 +6,8 @@ function Input({
   className,
   placeholderClassName,
   ...props
-}: React.ComponentProps<typeof TextInput> & React.RefAttributes<TextInput>) {
+}: React.ComponentProps<typeof TextInput> &
+  React.RefAttributes<TextInput> & { placeholderClassName?: string }) {
   return (
     <TextInput
       className={cn(
