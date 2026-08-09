@@ -2,6 +2,12 @@
 
 Talkly is a modern, real-time event-driven chat application designed for web and mobile platforms. Built as a monorepo, it features a scalable Node.js/Express backend paired with a React Native Expo frontend. 
 
+## 🌐 Live Demos & Links
+
+- **Web App:** [https://talkly-web.vercel.app/](https://talkly-web.vercel.app/)
+- **Android APK:** [Download from Google Drive](https://drive.google.com/file/d/1RQ59G_kc8kH6j7gBe4v6MXYKqdfGsYf8/view?usp=sharing)
+- **Backend API Docs (Swagger):** [https://knozify.space/docs](https://knozify.space/docs)
+
 ## 🚀 Features
 
 - **Real-Time Event-Driven Architecture:** Uses Socket.io for instantaneous bidirectional communication, minimizing latency for messages and events.
